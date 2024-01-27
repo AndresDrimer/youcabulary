@@ -1,0 +1,19 @@
+{
+    "name": "andres/youcab_ok",
+    "type": "project",
+    "require": {
+        "vlucas/phpdotenv": "^5.6",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Andres\\YoucabOk\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "AndresDrimer",
+            "email": "andresdrimer@hotmail.com"
+        }
+    ]
+}
