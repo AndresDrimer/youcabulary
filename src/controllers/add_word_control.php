@@ -18,6 +18,8 @@ if( $_SERVER["REQUEST_METHOD"] == "POST"){
     try{
         $wordObj = new Word($word);
         $wordObj->save();
+        $_SESSION['message'] = "Word added successfully!"; 
+        $_SESSION['message_type'] = "success";
     }
     catch(PDOException $e){
         $_SESSION['message'] = $e->getMessage(); 

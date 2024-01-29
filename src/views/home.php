@@ -29,7 +29,11 @@ if (isset($_SESSION['message'])) {
     </div>
 
 
-
+    <div id="loading" style="display: none;">
+    <img src="public/stripe.gif" alt="Loading..." >
+    <p >Loading...</p>
+    
+</div>
 
     <h1 id="home-title">YouCabulary</h1>
     <p id="word-count-home"><?php if (count($custom_dictionary) > 0) {

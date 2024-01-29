@@ -1,6 +1,10 @@
 <?php
 use Andres\YoucabOk\models\User;
 
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 if( isset($_SESSION["uuid"]) ){
     $uuid = $_SESSION["uuid"];
   
@@ -16,6 +20,7 @@ if( isset($_SESSION["uuid"]) ){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Youcabulary</title>
+    <link rel="icon" type="image/jpg" href="public/imagen.ico"/>
     <link rel="stylesheet" href="src/resources/css/normalize.css">
     <link rel="stylesheet" href="src/resources/css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
