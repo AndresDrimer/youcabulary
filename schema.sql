@@ -22,5 +22,5 @@ CREATE TABLE IF NOT EXISTS words (
     definition TEXT NOT NULL,
     user_uuid VARCHAR(255) NOT NULL,
     FOREIGN KEY (user_uuid) REFERENCES users(uuid),  
-    pronunciation VARCHAR(255) 
+    audio_data MEDIUMBLOB
 );

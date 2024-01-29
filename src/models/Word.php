@@ -6,6 +6,12 @@ use Andres\YoucabOk\models\Dbh;
 use PDO;
 use PDOException;
 use Exception;
+use Dotenv\Dotenv;
+
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
 
 class Word extends Dbh
 {
@@ -14,13 +20,17 @@ class Word extends Dbh
     private $uuid;
     private $definition;
     private $user_uuid;
+    private $audio_data;
 
     public function __construct(string $str)
     {
+
+
         $this->str = $str;
         $this->uuid = uniqid();
         $this->definition = null;
         $this->user_uuid = $_SESSION["uuid"];
+        $this->audio_data = null;
     }
 
     public function getDefinition()
@@ -28,12 +38,14 @@ class Word extends Dbh
         return $this->definition;
     }
 
-    public function getAudio($worde)
+    public function getAudioFromApi($worde)
     {
-        $curl = curl_init();
 
+        $curl = curl_init();
+        $api_key = $_ENV["TEXT_TO_SPEECH_API_KEY"];
+        $x_rapid_api_key = $_ENV["X_RAPIDAPI_KEY"];
         curl_setopt_array($curl, [
-            CURLOPT_URL => "https://voicerss-text-to-speech.p.rapidapi.com/?key=537576a1d0714cc88455e2c9dee70024",
+            CURLOPT_URL => "https://voicerss-text-to-speech.p.rapidapi.com/?key={$api_key}",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -43,7 +55,7 @@ class Word extends Dbh
             CURLOPT_POSTFIELDS => "src={$worde}&hl=en-us&r=-3&c=mp3&f=8khz_8bit_mono",
             CURLOPT_HTTPHEADER => [
                 "X-RapidAPI-Host: voicerss-text-to-speech.p.rapidapi.com",
-                "X-RapidAPI-Key: b9944b3745msh92869d723beee38p181749jsn16d1f1982f31",
+                "X-RapidAPI-Key: {$x_rapid_api_key}",
                 "content-type: application/x-www-form-urlencoded"
             ],
         ]);
@@ -77,8 +89,9 @@ class Word extends Dbh
             echo "no pude trare las palabras";
         }
     }
-    public function catchDefinition($str)
+    public function getDefinitionFromApi($str)
     {
+        $x_rapid_api_key = $_ENV["X_RAPIDAPI_KEY"];
         $curl = curl_init();
 
         curl_setopt_array($curl, [
@@ -91,7 +104,7 @@ class Word extends Dbh
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => [
                 "X-RapidAPI-Host: dictionary-by-api-ninjas.p.rapidapi.com",
-                "X-RapidAPI-Key: b9944b3745msh92869d723beee38p181749jsn16d1f1982f31"
+                "X-RapidAPI-Key: {$x_rapid_api_key}"
             ],
         ]);
 
@@ -109,15 +122,32 @@ class Word extends Dbh
             }
         }
     }
+
+    public function setAudio($audioData)
+    {
+        $this->audio_data = $audioData;
+    }
+
+    public function getAudio()
+    {
+        return $this->audio_data;
+    }
+
     public function save()
     {
-        $definition = $this->catchDefinition($this->str);
+        $definition = $this->getDefinitionFromApi($this->str);
         $this->definition = $definition;
-       
+
         if (!$definition) {
-            echo "couldn´t add that word to database";
+
+            $_SESSION['message'] = 'No encontramos esa palabra en el diccionario, por favor asegurate de no haber escrito alguna letra equivocada';
+            $_SESSION['message_type'] = 'danger';
         } else {
-            $sql = "INSERT INTO words(str, uuid, definition, user_uuid ) VALUES(:str, :uuid, :definition, :user_uuid)";
+            $this->audio_data = $this->getAudioFromApi($this->str);
+
+            $audioData = $this->getAudio();
+
+            $sql = "INSERT INTO words(str, uuid, definition, user_uuid, audio_data ) VALUES(:str, :uuid, :definition, :user_uuid, :audio_data)";
             try {
                 $dbh = new Dbh;
                 $pdo = $dbh->connect();
@@ -126,12 +156,44 @@ class Word extends Dbh
                 $stmt->bindParam(':uuid', $this->uuid);
                 $stmt->bindParam(':definition', $this->definition);
                 $stmt->bindParam(':user_uuid', $this->user_uuid);
+                $stmt->bindParam(':audio_data', $audioData);
                 $stmt->execute();
-                
             } catch (Exception $e) {
                 error_log("Error log: " . $e->getMessage());
-                echo "mala" . $e->getMessage();
+                $_SESSION['message'] = 'Hubo un error al guardar la palabra en la base de datos';
+                $_SESSION['message_type'] = 'danger';
             }
+        }
+    }
+    public function getAudioFromDatabase($worde)
+    {
+        $sql = "SELECT audio_data FROM words WHERE str = :str AND user_uuid = :user_uuid";
+        try {
+            $dbh = new Dbh;
+            $pdo = $dbh->connect();
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':str', $worde);
+            $stmt->bindParam(':user_uuid', $this->user_uuid);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result['audio_data'];
+        } catch (PDOException $e) {
+            error_log("Error: " . $e->getMessage());
+        }
+    }
+    public function deleteWord($worde){
+        $sql = "DELETE FROM words WHERE str = :str AND user_uuid = :user_uuid";
+        try {
+            $dbh = new Dbh;
+            $pdo = $dbh->connect();
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':str', $worde);
+            $stmt->bindParam(':user_uuid', $this->user_uuid);
+            $stmt->execute();
+            
+        } catch (PDOException $e) {
+            error_log("Error: ". $e->getMessage());
+          
         }
     }
 }

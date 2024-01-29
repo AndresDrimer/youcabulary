@@ -118,7 +118,7 @@ main {
   flex-grow: 1;
   overflow: auto;
   background-position: center;
- margin-bottom: 60px;
+ margin-bottom: 100px;
 
 }
 #logo-login-complete{
@@ -439,7 +439,7 @@ input:checked + .slider:before {
   100% { transform: translateX(-50px); }
 }
 
-/*fin spinner*/
+/*end spinner*/
 
 .dict-container{
   width:80%;
@@ -471,11 +471,35 @@ input:checked + .slider:before {
   cursor:pointer;
   
 }
+#del-word-btn{
+  background-color: transparent;
+  border:none;
+  color:var(--gray);
+  max-width:fit-content; 
+ 
+}
+#del-word-btn:hover, #del-word-btn:active{
+  scale:1.2;
+  color: red;
+}
+.bin-complete-form{
+ margin-right:auto;
+max-width:fit-content;
+  
+}
 #word-count-home{
   font-size: 20px;
   font-family: 'Great Vibes', cursive;
   text-align: center;
 }
+.bin-and-audio-container{
+  display:flex;
+  justify-content: flex-start;
+  align-items:center;  
+
+  max-width:fit-content;
+}
+
 #footer-text-title{
   font-family: 'Playfair Display', serif;
   text-align: center;
@@ -493,6 +517,7 @@ input:checked + .slider:before {
   font-size: 16px;
   font-family: 'Great Vibes', cursive;
 }
+
 /*philosophy modal*/
 #philosophy-modal{
   width:80%;
@@ -508,9 +533,9 @@ input:checked + .slider:before {
   font-family: 'Playfair Display', serif; 
   font-size:12px;
   color: gray;
+  cursor:pointer;
 }
 #close-philo-modal{
 cursor:pointer;
-
 
 }
