@@ -542,3 +542,27 @@ cursor:pointer;
 #loading{
   position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
 }
+
+.definition-classic-title, .definition-urban-title{
+  font-style: italic;
+  margin-bottom:-25px;
+  font-size:small;
+}
+
+.separator{
+  margin-top:20px;
+  text-align: center;
+}
+.word-title{
+  font-size: 32px;
+}
+
+.fullDefinition{
+ display:none;
+}
+.truncatedDefinition{
+   display:block;
+}
+.readMoreBtn, .readLessBtn{
+  cursor:pointer;
+}

@@ -14,6 +14,8 @@ function closePhiloModal() {
     var modal = document.getElementById("philosophy-modal");
     modal.style.display = "none";
 }
+
+
 /*THIS BREAKS ERROR MSG SYSTEM, I PREFERE TO GO WITH IT AND WITHOUT SPINNER BY NOW. SHOULD BE RE-CHECKED 
 //////loading spinner
 
@@ -33,3 +35,6 @@ document.querySelector('#add-word').addEventListener('submit', function(event) {
     });
 
 */
+
+
+

@@ -1,0 +1,6 @@
+User (Andres\YoucabOk\Tests\User)
+ [x] Constructor
+ [x] Save
+ [x] Check credentials
+ [x] Generate token
+

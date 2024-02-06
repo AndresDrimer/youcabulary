@@ -10,10 +10,18 @@
             "Andres\\YoucabOk\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Andres\\YoucabOk\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "AndresDrimer",
             "email": "andresdrimer@hotmail.com"
         }
-    ]
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^10.5"
+    }
 }

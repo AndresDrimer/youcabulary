@@ -9,7 +9,8 @@ if (session_status() == PHP_SESSION_NONE) {
 
 if (isset($_POST['delete_word'])) {
     $worde = $_POST['delete_word'];
-    $wordObj = new Word($worde);
+    $uuid = $_POST["uuid"];
+    $wordObj = new Word($worde, $uuid);
     $wordObj->deleteWord($worde);
     $_SESSION['message'] = "palabra borrada de tu colección";
     $_SESSION['message_type'] = "success";

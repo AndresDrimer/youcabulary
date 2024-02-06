@@ -8,9 +8,14 @@ document.addEventListener("DOMContentLoaded", function () {
   let labelRegister = document.querySelector("#label-register");
 
   // Initialize signupForm as visible and registerForm as hidden
-  signupForm.style.display = "flex";
-  registerForm.style.display = "none";
-
+  if (signupForm){
+     signupForm.style.display = "flex";
+  }
+ if (registerForm){
+ registerForm.style.display = "none";
+ }
+ 
+if(checkBoxSign){
   checkBoxSign.addEventListener("change", function () {
     if (this.checked) {
       signupForm.style.display = "none";
@@ -23,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
       labelSignup.style.color = "var(--blue)";
       labelRegister.style.color = "var(--gray)";
     }
-  });
+  });}
 });
 
 // Shows alert and superposition layer
