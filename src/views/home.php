@@ -2,6 +2,7 @@
 
 use Andres\YoucabOk\models\User;
 use Andres\YoucabOk\models\Word;
+use Andres\YoucabOk\models\UserCelebrate;
 
 require "src/includes/header.inc.php";
 
@@ -12,8 +13,16 @@ if (session_status() == PHP_SESSION_NONE) {
 $user_uuid = $_SESSION["uuid"];
 $custom_dictionary = Word::getAll($user_uuid);
 
+$messageTypeToAudio = include "src/controllers/audio_control.php";
+
 if (isset($_SESSION['message'])) {
-    echo '<div class="back-overlay"></div><div class="alert alert-' . $_SESSION['message_type'] . '"><div class="close">✖</div>' . $_SESSION['message'] . '</div>';
+    if (array_key_exists($_SESSION['message_type'], $messageTypeToAudio)) {
+        $audioFilePath = $messageTypeToAudio[$_SESSION['message_type']];
+    } else {
+        // Handle the case where the message type is not defined
+        $audioFilePath = ''; // Default to no audio or set a default audio path
+    }
+    echo '<div class="back-overlay"></div><div class="alert alert-' . $_SESSION['message_type'] . '"><div class="close">✖</div>' . $_SESSION['message'] . '<audio src="' . $audioFilePath . '" autoplay></audio></div>';
     unset($_SESSION['message']);
     unset($_SESSION['message_type']);
 }
@@ -41,9 +50,16 @@ function makeTruncatedDef($definition)
     return $truncatedDefinition;
 }
 
+$userCelebrate = new UserCelebrate($uuid);
+$wordCount = $userCelebrate->getUserWordCount();
+$_SESSION["wordCount"] = $wordCount;
+
 ?>
 
 <main>
+
+<div id="confetti-container"></div>
+
     <button onclick="showMPhilosophyModal()" id="philo-open-btn">Our philosophy</button>
     <div id="philosophy-modal" style="display:none;">
         <button onClick="closePhiloModal()" id="close-philo-modal" class="close">✖</button>
@@ -61,7 +77,9 @@ function makeTruncatedDef($definition)
         <p>Loading...</p>
 
     </div>
-
+<?php if($wordCount === 0){
+    echo"<div class='starter-text'><h2>Agregá tu primera palabra para comenzar<span id='three-dots'>...</span></h2></div>";
+} ?>
     <h1 id="home-title">YouCabulary</h1>
     <p id="word-count-home"><?php if (count($custom_dictionary) > 0) {
                                 echo "Tu diccionario ya tiene " . count($custom_dictionary) . " ";
@@ -70,7 +88,7 @@ function makeTruncatedDef($definition)
 
     <form action="src/controllers/add_word_control.php" method="POST" id="add-word">
         <input type="hidden" name="uuid" value="<?php echo $user_uuid; ?>">
-        <input type="text" name="new_word" placeholder="New word...">
+        <input type="text" name="new_word" placeholder="New word or expression...">
         <input type="submit" value="add" autofocus>
     </form>
 
@@ -153,6 +171,31 @@ function makeTruncatedDef($definition)
 
 
 </main>
+
+<!--evaluate celebration for confetti-->
+<?php
+  
+    if( isset($_SESSION["firstWordConfetti"]) && $_SESSION["firstWordConfetti"] ){
+        $userCelebrate->confetti();
+        $_SESSION["firstWordConfetti"]= false;
+    }
+    if( isset($_SESSION["thirdWordConfetti"]) && $_SESSION["thirdWordConfetti"] ){
+        $userCelebrate->confetti();
+        $_SESSION["thirdWordConfetti"]= false;
+    }
+    if( isset($_SESSION["thirtyWordConfetti"]) && $_SESSION["thirtyWordConfetti"] ){
+        $userCelebrate->confetti();
+        $_SESSION["thirtyWordConfetti"]= false;
+    }
+    if( isset($_SESSION["sixtyWordConfetti"]) && $_SESSION["sixtyWordConfetti"] ){
+        $userCelebrate->confetti();
+        $_SESSION["sixtyWordConfetti"]= false;
+    }
+    if( isset( $_SESSION["threeHundredWordConfetti"]) && $_SESSION["threeHundredWordConfetti"] ){
+        $userCelebrate->confetti();
+        $_SESSION["threeHundredWordConfetti"]= false;
+    }
+?>
 
 <?php
 require "src/includes/footer.inc.php";

@@ -35,8 +35,11 @@ if(checkBoxSign){
 let closeBtn = document.querySelector(".close");
 let alertModal = document.querySelector(".alert");
 let overlay = document.querySelector(".back-overlay");
+let audio = new Audio('public/audio/click.mp3');
+//close modal and play sound
 if(closeBtn){
 closeBtn.addEventListener("click", () => {
   alertModal.style.display = "none";
   overlay.style.display = "none";
+  audio.play();
 });}

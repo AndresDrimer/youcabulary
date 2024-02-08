@@ -38,3 +38,18 @@ document.querySelector('#add-word').addEventListener('submit', function(event) {
 
 
 
+//make display to invite user to write on first usage disappear on add btn click.
+let addBtn = document.getElementById('add-word');
+let starterText = document.querySelector('.starter-text');
+
+addBtn.addEventListener('click', function(){
+    starterText.classList.add('fade-out');
+}, {once:true});
+
+var fadeOutElements = document.querySelectorAll('.fade-out');
+
+fadeOutElements.forEach(function(element) {
+  element.addEventListener('animationend', function() {
+    this.style.display = 'none';
+  });
+});

@@ -159,9 +159,7 @@ class Word extends Dbh
             throw new Exception("cURL Error #:" . $err);
         } else {
             $data = json_decode($response, true);
-            if(!empty($data["list"])){ echo"entro";
-                echo "<br> Esta respuesta es de la primera funcion: ";
-                var_dump($data["list"][0]);
+            if(!empty($data["list"])){
                 return $data;} 
             else return null;
             

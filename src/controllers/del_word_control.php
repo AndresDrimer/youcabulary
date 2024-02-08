@@ -13,7 +13,7 @@ if (isset($_POST['delete_word'])) {
     $wordObj = new Word($worde, $uuid);
     $wordObj->deleteWord($worde);
     $_SESSION['message'] = "palabra borrada de tu colección";
-    $_SESSION['message_type'] = "success";
+    $_SESSION['message_type'] = "deleted";
     ob_end_clean(); // Limpiar el buffer de salida
     header("Location: ../../?view=home"); 
     exit();

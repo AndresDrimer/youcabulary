@@ -213,10 +213,9 @@ input:focus {
 }
 .alert {
   position: absolute;
-  width: 100%;
-  height: 100px;
-  top: 0%;
-  left: 0%;
+  max-width: 100%;
+ height:6vh;
+  inset:0;
   
   display: flex;
   flex-direction: column;
@@ -226,8 +225,30 @@ input:focus {
   color: white;
   z-index: 100;
   padding: 20px;
-
+ overflow-y: none;
+ overflow-x: none;
+text-wrap: wrap;
   border: 1px solid white;
+  animation: slideToCenter  0.5s forwards;
+}
+@keyframes slideToCenter {
+  0% {
+   /* Start position off-screen to the right */
+   transform: translateX(100%);
+   /* Optionally set initial opacity if desired */
+  
+ }
+  100% {
+   /* End position at the center of the screen */
+   transform: translateX(0);
+   /* Optionally set final opacity if desired */
+   
+ }
+}
+@media (min-width:500px){
+.alert{
+  height:8vh;
+}
 }
 .alert-danger {
   background-color: var(--red);
@@ -235,16 +256,21 @@ input:focus {
 .alert-success{
   background-color: var(--custom-light-green) !important;
 }
+.alert-deleted{
+  background-color: var(--custom-orange) !important;
+}
+.alert-celebration{
+  background-color: var(--custom-green) !important;
+  border:2px solid var(--custom-green) !important;
+}
 .close {
-  width: 16px;
-  height: 16px;
-  margin-bottom: 24px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
   align-self: flex-end;
-  margin-right: 10%;
   cursor: pointer;
-  border: 1px solid white;
-  border-radius: 50%;
-  padding: 4px;
+
+  
 }
 /* use for adding gray background when alert is on*/
 .back-overlay {
@@ -565,4 +591,51 @@ cursor:pointer;
 }
 .readMoreBtn, .readLessBtn{
   cursor:pointer;
+}
+
+#confetti-container {
+  position: fixed;
+  top:  0;
+  left:  0;
+  width:  100%;
+  height:  100%;
+  pointer-events: none;
+}
+.starter-text{
+  width: 60%;
+  margin: auto;
+  font-family: 'Great Vibes', cursive;
+  text-align: center;
+  border: 1px solid gray;
+  margin-top:12px;
+  border-radius: 4px;
+  padding: 0 12px;
+ background-color: var(--custom-light-orange);
+  letter-spacing: 140%;
+  animation: fadeIn  1.5s ease-in-out;
+}
+@keyframes fadeIn {
+  from {
+    opacity:  0;
+   
+  }
+  to {
+    opacity:  1;
+
+  }
+}
+#three-dots{
+  animation: fadeIn 3.5s ease-in-out;
+}
+@keyframes fadeOut {
+  from { opacity:  1; max-height: auto; }
+  to { opacity:  0; max-height:  0; }
+}
+
+
+.fade-out {
+  animation-name: fadeOut;
+  animation-duration:  0.2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
 }
