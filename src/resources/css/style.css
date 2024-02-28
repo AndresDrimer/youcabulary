@@ -269,8 +269,9 @@ text-wrap: wrap;
   margin-bottom: 16px;
   align-self: flex-end;
   cursor: pointer;
-
-  
+}
+#close-self-modal{
+  cursor: pointer;
 }
 /* use for adding gray background when alert is on*/
 .back-overlay {
@@ -291,7 +292,7 @@ footer {
   box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.2);
   margin-top: auto;
   height: 100px;
-  position: fixed;
+  /*position: fixed;*/
   width: 100%;
   bottom: 0;
   left: 0;

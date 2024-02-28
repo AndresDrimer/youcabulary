@@ -33,9 +33,10 @@ if(checkBoxSign){
 
 // Shows alert and superposition layer
 let closeBtn = document.querySelector(".close");
+let closeSelfModal = document.querySelector("#close-self-modal");
 let alertModal = document.querySelector(".alert");
 let overlay = document.querySelector(".back-overlay");
-let audio = new Audio('public/audio/click.mp3');
+let audio = new Audio('public/audio/cork.wav');
 //close modal and play sound
 if(closeBtn){
 closeBtn.addEventListener("click", () => {
@@ -43,3 +44,9 @@ closeBtn.addEventListener("click", () => {
   overlay.style.display = "none";
   audio.play();
 });}
+if(closeSelfModal){
+  closeSelfModal.addEventListener("click", () => {
+    alertModal.style.display = "none";
+    overlay.style.display = "none";
+    audio.play();
+  });}
