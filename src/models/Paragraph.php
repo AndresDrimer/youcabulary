@@ -15,8 +15,10 @@ class Paragraph extends Dbh
     private $user_uuid;
     private $audio;
     private $created_at;
+    private $voiceCountry;
+    private $voiceName;
 
-    public function __construct(string $paragraph, string $user_uuid)
+    public function __construct(string $paragraph, string $user_uuid, string $voiceCountry, string $voiceName)
     {
         
         $this->uuid = uniqid();
@@ -24,6 +26,8 @@ class Paragraph extends Dbh
         $this->user_uuid = $user_uuid;
         $this->audio = null;
         $this->created_at = date("Y-m-d H:i:s");
+        $this->voiceCountry = $voiceCountry;
+        $this->voiceName = $voiceName;
     }
     
     public static function getAllParagraphs(){
@@ -138,7 +142,7 @@ class Paragraph extends Dbh
         $audio = new Audio();
 
         // Use Audio class to fetch audio data
-        $audioData = $audio->getAudioFromApi($cleanParagraphForAudio);
+        $audioData = $audio->getAudioFromApi($cleanParagraphForAudio, $this->voiceCountry, $this->voiceName);
         
         $this->audio = $audioData;
 

@@ -5,6 +5,7 @@ use Andres\YoucabOk\models\Word;
 use Andres\YoucabOk\models\UserCelebrate;
 
 require "src/includes/header.inc.php";
+require "src/resources/audio_tools.php";
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -60,13 +61,22 @@ $userCelebrate = new UserCelebrate($uuid);
 $wordCount = $userCelebrate->getUserWordCount();
 $_SESSION["wordCount"] = $wordCount;
 
+
+//establish default voice if not yet selected
+if (!isset($_SESSION["voiceName"])){
+    $_SESSION["voiceName"] = "Mike";
+    $_SESSION["voiceCountry"] =  "en-us";
+}
+$voiceName = $_SESSION["voiceName"];
+$voiceCountry = $_SESSION["voiceCountry"]; 
+
 ?>
 
 <main>
 
 <div id="confetti-container"></div>
 
-<div class=""bg_gray">
+
 <nav class="nav-main">
     <button onclick="showMPhilosophyModal()" id="philo-open-btn" class="nav-main-item">Our philosophy</button>
     <a href="?view=ai" class="nav-main-item">AI generation</a>
@@ -101,12 +111,14 @@ $_SESSION["wordCount"] = $wordCount;
   
 <form action="src/controllers/add_word_control.php" method="POST" id="add-word">
         <input type="hidden" name="uuid" value="<?php echo $user_uuid; ?>">
+        <input type="hidden" name="voiceCountry" value="<?php echo $voiceCountry; ?>">
+        <input type="hidden" name="voiceName" value="<?php echo $voiceName;?>">
         <input type="text" name="new_word" placeholder="new word..." class="center">
         <input type="submit" value="add" autofocus>
     </form>
 
 
-    </div>
+   
     <div class="show-terms">
         <?php
         foreach ($custom_dictionary as $index => $word) {
@@ -120,9 +132,11 @@ $_SESSION["wordCount"] = $wordCount;
     <!--audio-->
     <?php
     foreach ($custom_dictionary as $index => $word) :
-        $wordObj = new Word($word['str'], $_SESSION["uuid"]);
+        $wordObj = new Word($word['str'], $_SESSION["uuid"], $voiceCountry, $voiceName);
         $audioData = $wordObj->getAudioFromDatabase($word['str']);
-        $audioUrl = 'data:audio/mpeg;base64,' . base64_encode($audioData);
+     
+        $audioUrl = audioFormatter($audioData);
+        
 
     ?>
 

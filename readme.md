@@ -15,7 +15,7 @@ Schema Change
 
 Cree un nuevo schema 
 
-CrNew view ai and archive
+Cree New view ai and archive
 
 ///Settings
 cambios en home
@@ -26,9 +26,14 @@ cambie style.css
 cree controllers/settings
 
 //Refactoring
-cambia los models Word, Paragraph,, AiGenerative y cree Audio, ademas cambie ai.php
+cambia los models Word, Paragraph,, AiGenerative, add_word, delete_word
+ y cree Audio, ademas: 
+cambie ai.php
+cree resources/audio_tools.php
 Ademas, voy a probar modificar algo importante, no grabar mas los audios, para que se pueda cambiar el acento.
 Va a consumir mas recusos de API (pero me da 350 hits diarios) pero dar mas feat.
+Agregue el archive resources/voices-detail
+
 
 /// Planned Future features
 Otras 2 funcionalidades:

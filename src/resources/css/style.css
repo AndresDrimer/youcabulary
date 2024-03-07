@@ -62,23 +62,54 @@ header > div {
   font-size: 40px;
   line-height: 40px;
 }
+.settings-sub-title{
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  margin-bottom:-10px;
+  width: 80%;
+  max-width: 700px;
+  margin: auto;
+}
+#pick-color-label{
+  font-size:12px;
+}
+#archive-title{
+  font-family: 'Playfair Display', serif;
+  font-size:40px;
+}
 @media(min-width:400px){
   #home-title{  
     font-size: 66px;
   }
   #ai-title{
     font-size: 56px;
-   
     line-height: 50px;
+  }
+  .settings-sub-title{
+    font-size: 24px;
+  }
+  #pick-color-label{
+    font-size:14px;
+  }
+  #archive-title{
+    font-size:56px;
   }
 }
 @media(min-width:800px){
   #home-title{
-    font-size: 80px;
-   
+    font-size: 80px;  
   }
   #ai-title{
     font-size: 76px; line-height: 70px;
+  }
+  .settings-sub-title{
+    font-size: 28px;
+  }
+  #pick-color-label{
+    font-size:16px;
+  }
+  #archive-title{
+    font-size:76px;
   }
 }
 @media(min-width:1240px){
@@ -227,6 +258,7 @@ textarea {
 input[type="submit"] {
   background-color: var(--gray);
   color: white;
+  margin-top:4px;
   margin-bottom: 8px;
   padding: 4px 0;
   

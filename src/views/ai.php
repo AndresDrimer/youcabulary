@@ -33,10 +33,21 @@ $username = $user->getUsername();
 
 $today = date('Y-m-d');
 
+//establish default voice if not yet selected
+if (!isset($_SESSION["voiceName"])){
+    $_SESSION["voiceName"] = "Mike";
+    $_SESSION["voiceCountry"] =  "en-us";
+}
+$voiceName = $_SESSION["voiceName"];
+$voiceCountry = $_SESSION["voiceCountry"]; 
+
 ?>
 
-<main>
+<main><nav class="nav-main">
 <button class="nav-main-item"><a href="?view=home">⬅ back</a></button>
+<a href="?view=archive" class="nav-main-item">Archive</a>
+<a href="?view=settings" class="nav-main-item">Settings</a>
+</nav>
     <h1 id="ai-title">YouCabulary´s<br>AI generation</h1>
 
     <p class="ai-p">We handle AI generation to create a random paragraph with 5 of your custom words to help you practice.<br><span>Free users are allowed to create only one paragraph a day. We are working on deliverying paid suscriptions to make this feature limitless</span></p>
@@ -63,7 +74,7 @@ $today = date('Y-m-d');
                 //esta linea la uso para probar y no gastar quota de mi API: $newParagraph = "este es un parrafo de prueba bien culero wey";
 
                 //save to database 
-                $paragraph = new Paragraph($newParagraph, $user_uuid);
+                $paragraph = new Paragraph($newParagraph, $user_uuid, $voiceCountry, $voiceName);
                 $paragraph->save();
 
                 
@@ -71,7 +82,7 @@ $today = date('Y-m-d');
                     $audio = new Audio();
                     $audioData = $audio->getAudioFromApi($newParagraph); 
                     //correct format
-                    $audioUrl = 'data:audio/mpeg;base64,' . base64_encode($audioData);
+                    $audioUrl =audioFormatter($audioData);
                 
              ?>
 

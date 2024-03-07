@@ -17,7 +17,7 @@ class Audio
     }
 
     
-    public function getAudioFromApi($worde)
+    public function getAudioFromApi($str, $country = "en-us", $voiceName = "Mike")
     {
 
         $curl = curl_init();
@@ -31,7 +31,8 @@ class Audio
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "src={$worde}&hl=en-us&r=0&c=mp3&f=44.1khz_16bit_mono",
+            //CURLOPT_POSTFIELDS => "src={$str}&hl=en-us&r=0&c=mp3&f=44.1khz_16bit_mono",
+            CURLOPT_POSTFIELDS => "src={$str}&hl={$country}&v={$voiceName}&r=0&c=mp3&f=48khz_16bit_mono",
             CURLOPT_HTTPHEADER => [
                 "X-RapidAPI-Host: voicerss-text-to-speech.p.rapidapi.com",
                 "X-RapidAPI-Key: {$x_rapid_api_key}",
@@ -65,30 +66,7 @@ class Audio
     
 }
 
-/*Mike voice en-us male
-//Amy voice en-us female//irlanda
-//autralia
-//india
 
-elegir las mejores de cada pais, homre y mujer
-en-us male: Mike ; en-us
-en-us- female: Amy; en-us
-autralia female: isla ; en-au
-australia male: Mason ; en-au
-india female:Jai; en-in
-india male: Ajit;  en-in         
-irlanda male: Oran ;en-ie
-great britan female: nancy; en-gb
-great britain male: harry; en-gb
-canada female: clara ; en-ca
-canada male: Mason ;   en-ca
-*/
 /*estoy probando la calidad, si es 44 y 16, o si menos igual queda bien*/
+
 /*tengo que dejar de grabar y probarlo mucho, me da 350 hits por dia ,da para probar bien*/
-/*la formula deberia cambiarse asi:
-    $country="en-us"
-    $locutorName="Mike"
-    CURLOPT_POSTFIELDS => "src={$worde}&hl={$country},v={$locutorName},&r=0&c=mp3&f=48khz_16bit_mono",
-    
-    
-    */

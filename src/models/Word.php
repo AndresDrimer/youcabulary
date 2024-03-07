@@ -22,8 +22,10 @@ class Word extends Dbh
     private $user_uuid;
     private $audio_data;
     private $second_definition;
+    private $voiceCountry;
+    private $voiceName;
 
-    public function __construct(string $str, string $uuid)
+    public function __construct(string $str, string $uuid, string $voiceCountry, string $voiceName)
     {
 
 
@@ -33,6 +35,8 @@ class Word extends Dbh
         $this->user_uuid = $uuid;
         $this->audio_data = null;
         $this->second_definition = null;
+        $this->voiceCountry = $voiceCountry;
+        $this->voiceName = $voiceName;
     }
     public function getTerm(){
         return $this->str;
@@ -198,7 +202,7 @@ class Word extends Dbh
         } else {
            
             $audio = new Audio();
-            $audioData = $audio->getAudioFromApi($this->str);
+            $audioData = $audio->getAudioFromApi($this->str, $this->voiceCountry, $this->voiceName);
             $audio->setAudio($audioData);
 
             $processedSecondDefinitionsToString = json_encode($processedSecondDefinitions);
@@ -243,14 +247,14 @@ class Word extends Dbh
             error_log("Error: " . $e->getMessage());
         }
     }
-    public function deleteWord($worde){
+    public static function deleteWord($worde,  $user_uuid){
         $sql = "DELETE FROM words WHERE str = :str AND user_uuid = :user_uuid";
         try {
             $dbh = new Dbh;
             $pdo = $dbh->connect();
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':str', $worde);
-            $stmt->bindParam(':user_uuid', $this->user_uuid);
+            $stmt->bindParam(':user_uuid', $user_uuid);
             $stmt->execute();
             
         } catch (PDOException $e) {

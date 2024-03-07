@@ -9,7 +9,7 @@ use Andres\YoucabOk\models\Paragraph;
 use function PHPUnit\Framework\isEmpty;
 
 require "src/includes/header.inc.php";
-
+require "src/resources/audio_tools.php";
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -24,7 +24,7 @@ $other_users_paragraphs = Paragraph::getOtherUsersParagraphs($user_uuid);
 
 <main>
 <button class="nav-main-item"><a href="?view=home">⬅ back</a></button>
-    <h1 id="home-title">YouCabulary´s<br>ARCHIVE</h1>
+    <h1 id="archive-title">YouCabulary´s<br>ARCHIVE</h1>
     
 <div class="archive-btns-container">
     <form action="" method="post">
@@ -46,7 +46,8 @@ $other_users_paragraphs = Paragraph::getOtherUsersParagraphs($user_uuid);
                 
                 $audioData = $paragraph["audio"];
                 if (isset($audioData)){
-                $audioUrl = 'data:audio/mpeg;base64,' . base64_encode($audioData);
+                $audioUrl = audioFormatter($audioData);
+
                 echo"<div style='text-align:right'><audio controls><source src='{$audioUrl}' type='audio/mpeg'>Tu navegador no puede reproducir este audio.</audio></div>";
                 }
                 echo "<p class='new-paragraph smaller'>" . $paragraph["paragraph"] . "</p>";
@@ -61,7 +62,7 @@ $other_users_paragraphs = Paragraph::getOtherUsersParagraphs($user_uuid);
                 
                 $audioData = $paragraph["audio"];
                 if (isset($audioData)){
-                $audioUrl = 'data:audio/mpeg;base64,' . base64_encode($audioData);
+                $audioUrl = audioFormatter($audioData);
 
                 echo"<div style='text-align:right'><audio controls><source src='{$audioUrl}' type='audio/mpeg'>Tu navegador no puede reproducir este audio.</audio></div>";
                 }

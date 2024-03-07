@@ -17,9 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $word = $_POST["new_word"];
         $word = htmlspecialchars($word, ENT_QUOTES, 'UTF-8');
         $uuid = $_POST["uuid"];
+        $voiceCountry = $_POST["voiceCountry"];
+        $voiceName = $_POST["voiceName"];
 
         try {
-            $wordObj = new Word($word, $uuid);
+            $wordObj = new Word($word, $uuid, $voiceCountry, $voiceName);
             $wordObj->save();
             $lastWordId = $wordObj->getUuid();
            

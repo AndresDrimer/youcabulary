@@ -10,8 +10,12 @@ if (session_status() == PHP_SESSION_NONE) {
 if (isset($_POST['delete_word'])) {
     $worde = $_POST['delete_word'];
     $uuid = $_POST["uuid"];
-    $wordObj = new Word($worde, $uuid);
-    $wordObj->deleteWord($worde);
+    $voiceCountry = $_POST["voiceCountry"];
+    $voiceName = $_POST["voiceName"];
+
+
+    
+    Word::deleteWord($worde,$uuid);
     $_SESSION['message'] = "palabra borrada de tu colección";
     $_SESSION['message_type'] = "deleted";
     ob_end_clean(); // Limpiar el buffer de salida
