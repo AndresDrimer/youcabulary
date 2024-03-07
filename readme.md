@@ -25,6 +25,10 @@ cambie includes/header
 cambie style.css
 cree controllers/settings
 
+//Refactoring
+cambia los models Word, Paragraph,, AiGenerative y cree Audio, ademas cambie ai.php
+Ademas, voy a probar modificar algo importante, no grabar mas los audios, para que se pueda cambiar el acento.
+Va a consumir mas recusos de API (pero me da 350 hits diarios) pero dar mas feat.
 
 /// Planned Future features
 Otras 2 funcionalidades:

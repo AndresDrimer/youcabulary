@@ -4,7 +4,7 @@ use Andres\YoucabOk\models\User;
 use Andres\YoucabOk\models\Word;
 use Andres\YoucabOk\models\AIGenerative;
 use Andres\YoucabOk\models\Paragraph;
-
+use Andres\YoucabOk\models\Audio;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -67,9 +67,11 @@ $today = date('Y-m-d');
                 $paragraph->save();
 
                 
-                //adding audio 
-                $audioData = $paragraph->getAudio();
-                $audioUrl = 'data:audio/mpeg;base64,' . base64_encode($audioData);
+                    // Instantiate the Audio class and fetch audio data
+                    $audio = new Audio();
+                    $audioData = $audio->getAudioFromApi($newParagraph); 
+                    //correct format
+                    $audioUrl = 'data:audio/mpeg;base64,' . base64_encode($audioData);
                 
              ?>
 
