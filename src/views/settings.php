@@ -76,6 +76,7 @@ $voiceName = isset($_SESSION["voiceName"]) ? $_SESSION["voiceName"] : "en-us";
         <div>
             <input type="submit" value="Change voice" id="change-voice-btn">
         </div>
+        <p class="tiny-note">* Please note that spoken texts are being stored in your database, so it won´t change once listened. But you can recall new words any time!</p>
     </form>
 </main>
 

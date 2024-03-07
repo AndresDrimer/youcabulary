@@ -23,11 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
             $wordObj = new Word($word, $uuid, $voiceCountry, $voiceName);
             $wordObj->save();
-            $lastWordId = $wordObj->getUuid();
+            
            
             //Celebration controller
             include "celebrations_control.php";
-          header("Location: ../../?view=home&lastWordId=" . $lastWordId);
+            
+            header("Location: ../../?view=home&word=" . urlencode($word));
 
         } catch (PDOException $e) {
             $_SESSION['message'] = $e->getMessage();

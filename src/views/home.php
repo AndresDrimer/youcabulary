@@ -74,23 +74,25 @@ $voiceCountry = $_SESSION["voiceCountry"];
 
 <main>
 
-<div id="confetti-container"></div>
+    <div id="confetti-container"></div>
 
 
-<nav class="nav-main">
-    <button onclick="showMPhilosophyModal()" id="philo-open-btn" class="nav-main-item">Our philosophy</button>
-    <a href="?view=ai" class="nav-main-item">AI generation</a>
-    <a href="?view=settings" class="nav-main-item">Settings</a>
-</nav>
-    <div id="philosophy-modal"  style="display:none;" onClick="closePhiloModal()" ><div id="btn-modal-x-container">
-        <button id="close-philo-modal" class="close">✖</button></div>
+    <nav class="nav-main">
+        <button onclick="showMPhilosophyModal()" id="philo-open-btn" class="nav-main-item">Our philosophy</button>
+        <a href="?view=ai" class="nav-main-item">AI generation</a>
+        <a href="?view=settings" class="nav-main-item">Settings</a>
+    </nav>
+    <div id="philosophy-modal" style="display:none;" onClick="closePhiloModal()">
+        <div id="btn-modal-x-container">
+            <button id="close-philo-modal" class="close">✖</button>
+        </div>
         <h3>YouCabulary Philosophy</h3>
         <p>Existe un método secreto que muchos de los mejores lingüistas del mundo comparten y los ayudó durante
             generaciones a aprender nuevos idiomas. La simpleza es la clave, y el
-            método consiste de una sola regla: aprender 3 palabras nuevas cada día. 
-            
-            <br>No lo olvides: <span
-                style="font-weight:bold;">3 palabras, cada día, todos los días.</span></p>
+            método consiste de una sola regla: aprender 3 palabras nuevas cada día.
+
+            <br>No lo olvides: <span style="font-weight:bold;">3 palabras, cada día, todos los días.</span>
+        </p>
     </div>
 
 
@@ -99,7 +101,7 @@ $voiceCountry = $_SESSION["voiceCountry"];
         <p>Loading...</p>
 
     </div>
-<?php if($wordCount === 0){
+    <?php if($wordCount === 0){
     echo"<div class='starter-text'><h2>Agregá tu primera palabra para comenzar<span id='three-dots'>...</span></h2></div>";
 } ?>
     <h1 id="home-title">YouCabulary</h1>
@@ -108,8 +110,8 @@ $voiceCountry = $_SESSION["voiceCountry"];
                                 echo (count($custom_dictionary) > 1) ? "palabras" : "palabra";
                             } ?></p>
 
-  
-<form action="src/controllers/add_word_control.php" method="POST" id="add-word">
+
+    <form action="src/controllers/add_word_control.php" method="POST" id="add-word">
         <input type="hidden" name="uuid" value="<?php echo $user_uuid; ?>">
         <input type="hidden" name="voiceCountry" value="<?php echo $voiceCountry; ?>">
         <input type="hidden" name="voiceName" value="<?php echo $voiceName;?>">
@@ -118,14 +120,15 @@ $voiceCountry = $_SESSION["voiceCountry"];
     </form>
 
 
-   
+
     <div class="show-terms">
         <?php
         foreach ($custom_dictionary as $index => $word) {
             echo '<span class="each-term" id="term-' . $index . '">' . $word["str"] . '</span>';
         }
         ?>
-    </div></div>
+    </div>
+    </div>
 
     <p class="separator">〰</p>
 
@@ -195,10 +198,45 @@ $voiceCountry = $_SESSION["voiceCountry"];
             Example: <?php echo htmlspecialchars($secondDefinition['example']); ?>
         </p>
         <?php endforeach; ?>
-        <?php endif; echo"</div>"; ?> 
+        <?php endif; echo"</div>"; ?>
     </div>
-   <p class="separator">〰</p>
+    <p class="separator">〰</p>
     <?php endforeach; ?>
+
+    <!--modal to scroll back to top-->
+
+    
+    <div id="scrollModal" class="modalScroll">
+        <div class="modal-content">
+            <span class="material-symbols-outlined closeScrollModal">
+                expand_less
+            </span>
+        </div>
+    </div>
+    
+
+    <!--script for scrolling to a new word added-->
+    <?php
+if (isset($_GET['word'])) {
+    $wordToScrollTo = $_GET['word'];
+    echo <<<HTML
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Encuentra el contenedor de la palabra a la que se debe desplazar
+        let wordContainers = document.querySelectorAll('.dict-container');
+        for (let i = 0; i < wordContainers.length; i++) {
+            if (wordContainers[i].querySelector('.word-title').textContent.trim() === '{$wordToScrollTo}') {
+                // Desplaza la página hasta el contenedor de la palabra
+                wordContainers[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                wordContainers[i].querySelector('.word-title').style.fontSize = '44px';
+                break;
+            }
+        }
+    });
+</script>
+HTML;
+}
+?>
 
 
 </main>

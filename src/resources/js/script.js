@@ -2,7 +2,7 @@
 document.querySelectorAll('.each-term').forEach((term, index) => {
     term.addEventListener('click', () => {
         const definition = document.getElementById('def-' + index);
-        definition.scrollIntoView({behavior: "smooth"});
+        definition.scrollIntoView({behavior: "smooth", block:'center'});
     });
 });
 
@@ -55,34 +55,51 @@ fadeOutElements.forEach(function(element) {
   });
 });
 
-//if new world added, scroll to thta term when reloading
-//cuando recarga
-document.addEventListener('DOMContentLoaded', function() {
-    // Función para obtener el ID de la última palabra agregada de la URL
-    function getLastWordIdFromUrl() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('lastWordId');
+
+// Shows alert and superposition layer
+let closeBtn = document.querySelector(".close");
+let closeSelfModal = document.querySelector("#close-self-modal");
+let alertModal = document.querySelector(".alert");
+let overlay = document.querySelector(".back-overlay");
+let audio = new Audio('public/audio/cork.wav');
+//close modal and play sound
+if(closeBtn){
+closeBtn.addEventListener("click", () => {
+  alertModal.style.display = "none";
+  overlay.style.display = "none";
+  audio.play();
+});}
+if(closeSelfModal){
+  closeSelfModal.addEventListener("click", () => {
+    alertModal.style.display = "none";
+    overlay.style.display = "none";
+    audio.play();
+  });}
+
+
+  //modal to scroll back to top functionally
+  window.onscroll = function() {showModal()};
+
+  function showModal() {
+    if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
+       document.getElementById("scrollModal").style.display = "block";
+    } else {
+       document.getElementById("scrollModal").style.display = "none";
     }
+   }
+// Obtiene el elemento <span> que cierra el modal
+var span = document.getElementsByClassName("closeScrollModal")[0];
 
-    // Función para verificar si un elemento con un ID específico existe
-    function elementExists(id) {
-        return document.getElementById(id) !== null;
-    }
+// Cuando el usuario hace clic en <span> (x), cierra el modal
+span.onclick = function() {
+ document.getElementById("scrollModal").style.display = "none";
+ window.scrollTo(0, 0); // Vuelve al inicio de la página
+}
 
-    // Función para desplazarse hasta el elemento si existe
-    function scrollToLastWord() {
-        const lastWordId = getLastWordIdFromUrl();
-        if (lastWordId && elementExists('term-' + lastWordId)) {
-            const lastWordElement = document.getElementById('term-' + lastWordId);
-            lastWordElement.scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-                inline: "center"
-            });
-        }
-    }
-
-    // Llama a la función para desplazarte hasta la última palabra agregada
-    scrollToLastWord();
-});
-
+// Cuando el usuario hace clic en cualquier lugar fuera del modal, lo cierra
+window.onclick = function(event) {
+ if (event.target == document.getElementById("scrollModal")) {
+    document.getElementById("scrollModal").style.display = "none";
+    window.scrollTo(0, 0); // Vuelve al inicio de la página
+ }
+}

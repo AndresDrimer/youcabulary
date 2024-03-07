@@ -32,7 +32,7 @@ class Audio
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
             //CURLOPT_POSTFIELDS => "src={$str}&hl=en-us&r=0&c=mp3&f=44.1khz_16bit_mono",
-            CURLOPT_POSTFIELDS => "src={$str}&hl={$country}&v={$voiceName}&r=0&c=mp3&f=48khz_16bit_mono",
+            CURLOPT_POSTFIELDS => "src={$str}&hl={$country}&v={$voiceName}&r=0&c=mp3&f=16khz_16bit_mono",
             CURLOPT_HTTPHEADER => [
                 "X-RapidAPI-Host: voicerss-text-to-speech.p.rapidapi.com",
                 "X-RapidAPI-Key: {$x_rapid_api_key}",
