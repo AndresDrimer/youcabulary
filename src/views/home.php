@@ -66,15 +66,21 @@ $_SESSION["wordCount"] = $wordCount;
 
 <div id="confetti-container"></div>
 
-    <button onclick="showMPhilosophyModal()" id="philo-open-btn">Our philosophy</button>
-    <div id="philosophy-modal" style="display:none;">
-        <button onClick="closePhiloModal()" id="close-philo-modal" class="close">✖</button>
+<div class=""bg_gray">
+<nav class="nav-main">
+    <button onclick="showMPhilosophyModal()" id="philo-open-btn" class="nav-main-item">Our philosophy</button>
+    <a href="?view=ai" class="nav-main-item">AI generation</a>
+    <a href="?view=settings" class="nav-main-item">Settings</a>
+</nav>
+    <div id="philosophy-modal"  style="display:none;" onClick="closePhiloModal()" ><div id="btn-modal-x-container">
+        <button id="close-philo-modal" class="close">✖</button></div>
         <h3>YouCabulary Philosophy</h3>
-        <p>Existe un método secreto que muchos de los mejores lingüistas del mundo comparten y que los ayudó durante
-            generaciones a aprender nuevos idiomas a una velocidad pasmosa. Como siempre la simpleza es la clave, y el
-            método consiste en una sola regla: aprender 3 palabras nuevas cada día. Esta página no es más que una
-            herramienta para ayudarte en tu camino a dominar el inglés en muy poco tiempo.<br>No lo olvides: <span
-                style="font-weight:bold;">3 palabras nuevas, cada día, todos los días.</span></p>
+        <p>Existe un método secreto que muchos de los mejores lingüistas del mundo comparten y los ayudó durante
+            generaciones a aprender nuevos idiomas. La simpleza es la clave, y el
+            método consiste de una sola regla: aprender 3 palabras nuevas cada día. 
+            
+            <br>No lo olvides: <span
+                style="font-weight:bold;">3 palabras, cada día, todos los días.</span></p>
     </div>
 
 
@@ -92,21 +98,26 @@ $_SESSION["wordCount"] = $wordCount;
                                 echo (count($custom_dictionary) > 1) ? "palabras" : "palabra";
                             } ?></p>
 
-    <form action="src/controllers/add_word_control.php" method="POST" id="add-word">
+  
+<form action="src/controllers/add_word_control.php" method="POST" id="add-word">
         <input type="hidden" name="uuid" value="<?php echo $user_uuid; ?>">
-        <input type="text" name="new_word" placeholder="New word or expression...">
+        <input type="text" name="new_word" placeholder="new word..." class="center">
         <input type="submit" value="add" autofocus>
     </form>
 
+
+    </div>
     <div class="show-terms">
         <?php
         foreach ($custom_dictionary as $index => $word) {
             echo '<span class="each-term" id="term-' . $index . '">' . $word["str"] . '</span>';
         }
         ?>
-    </div>
+    </div></div>
 
+    <p class="separator">〰</p>
 
+    <!--audio-->
     <?php
     foreach ($custom_dictionary as $index => $word) :
         $wordObj = new Word($word['str'], $_SESSION["uuid"]);

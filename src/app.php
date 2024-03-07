@@ -9,6 +9,15 @@ if (isset($_SESSION["username"])) {
         case "check_email":
             require "views/check_email.php";
             break;
+        case "ai":
+            require "views/ai.php";
+            break;
+        case "archive":
+            require "views/archive.php";
+            break;
+        case "settings":
+                require "views/settings.php";
+                break;
         default:
             require "views/home.php";
     }

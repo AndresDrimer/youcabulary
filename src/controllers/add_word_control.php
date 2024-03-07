@@ -21,11 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
             $wordObj = new Word($word, $uuid);
             $wordObj->save();
-
+            $lastWordId = $wordObj->getUuid();
            
             //Celebration controller
             include "celebrations_control.php";
-         
+          header("Location: ../../?view=home&lastWordId=" . $lastWordId);
 
         } catch (PDOException $e) {
             $_SESSION['message'] = $e->getMessage();
@@ -33,6 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
     }
-    header("Location: ../../?view=home");
+   
     exit();
 }

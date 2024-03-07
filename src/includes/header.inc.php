@@ -44,3 +44,15 @@ logout
 </span></a>    
     <?php if(isset($username)){echo"<p id='hello'>Welcome " .ucfirst(lcfirst($username)) . "!</p>";} ?></div>
     </header>
+
+
+    
+    <?php 
+    $bg_color_standard = isset($_SESSION["bg_color"]) ? $_SESSION["bg_color"] : "#ffdf66";
+    ?>
+    <style>
+  header {
+            background-color: <?php echo $bg_color_standard; ?>;
+        }
+
+    </style>
