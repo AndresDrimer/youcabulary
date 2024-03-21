@@ -96,11 +96,15 @@ class AIGenerative
 
             
             if (isset($responseArray['result'])) {
-               
-               return $this->convertAstericsIntoBoldFont( $responseArray['result']);
+              
+               $response = $this->convertAstericsIntoBoldFont( $responseArray['result']);
+               return ["message" => $response, "success"=> true];        
+
             } else {
-                
-                return "No pudo crearse el párrafo, es posible que hayas agotado tu cuota de generacion diaria.";
+                return [
+                    "message" => "The paragraph could not be created; it's possible you've exhausted your daily generation quota.",
+                    "success" => false
+                ];
             }
         }
 }
