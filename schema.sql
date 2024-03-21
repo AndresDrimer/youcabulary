@@ -25,3 +25,13 @@ CREATE TABLE IF NOT EXISTS words (
     audio_data MEDIUMBLOB,
     second_definition_array TEXT
 );
+
+CREATE TABLE IF NOT EXISTS paragraphs (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    uuid VARCHAR(255) NOT NULL UNIQUE,
+    paragraph TEXT,
+    user_uuid VARCHAR(255) NOT NULL,
+    FOREIGN KEY (user_uuid) REFERENCES users(uuid),  
+    audio MEDIUMBLOB NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)

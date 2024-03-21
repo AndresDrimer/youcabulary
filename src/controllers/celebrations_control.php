@@ -43,9 +43,14 @@ if (
         makeSessionMessage("300 words!!! Such a devotional work you have done here!! Keep practicing every day :)");
         makeSessionVariableForConfettiTrue("threeHundredWordConfetti");
     }
-} else {
+} 
+
+/*
+This success message is not available anymore because it interferes with scrolling, a behaviour I find more usefull after adding words.
+
+else {
     // Standard added word message
     makeSessionMessage("Word added successfully!");
 
     $_SESSION['message_type'] = "success";
-}
+}*/

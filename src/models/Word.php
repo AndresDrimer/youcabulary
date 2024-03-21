@@ -22,8 +22,10 @@ class Word extends Dbh
     private $user_uuid;
     private $audio_data;
     private $second_definition;
+    private $voiceCountry;
+    private $voiceName;
 
-    public function __construct(string $str, string $uuid)
+    public function __construct(string $str, string $uuid, string $voiceCountry, string $voiceName)
     {
 
 
@@ -33,8 +35,15 @@ class Word extends Dbh
         $this->user_uuid = $uuid;
         $this->audio_data = null;
         $this->second_definition = null;
+        $this->voiceCountry = $voiceCountry;
+        $this->voiceName = $voiceName;
     }
-
+    public function getTerm(){
+        return $this->str;
+    }
+    public function getUuid(){
+        return $this->uuid;
+    }
     public function getDefinition()
     {
         return $this->definition;
@@ -45,39 +54,6 @@ class Word extends Dbh
         return $this->second_definition;
     }
 
-    public function getAudioFromApi($worde)
-    {
-
-        $curl = curl_init();
-        $api_key = $_ENV["TEXT_TO_SPEECH_API_KEY"];
-        $x_rapid_api_key = $_ENV["X_RAPIDAPI_KEY"];
-        curl_setopt_array($curl, [
-            CURLOPT_URL => "https://voicerss-text-to-speech.p.rapidapi.com/?key={$api_key}",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "src={$worde}&hl=en-us&r=-3&c=mp3&f=8khz_8bit_mono",
-            CURLOPT_HTTPHEADER => [
-                "X-RapidAPI-Host: voicerss-text-to-speech.p.rapidapi.com",
-                "X-RapidAPI-Key: {$x_rapid_api_key}",
-                "content-type: application/x-www-form-urlencoded"
-            ],
-        ]);
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
-        curl_close($curl);
-
-        if ($err) {
-            echo "cURL Error #:" . $err;
-        } else {
-            return $response;
-        }
-    }
 
     public static function getAll($user_uuid)
     {
@@ -197,15 +173,7 @@ class Word extends Dbh
         }
     
     }
-    public function setAudio($audioData)
-    {
-        $this->audio_data = $audioData;
-    }
 
-    public function getAudio()
-    {
-        return $this->audio_data;
-    }
 
     public function save()
     {
@@ -232,9 +200,10 @@ class Word extends Dbh
             exit();
          
         } else {
-            $this->audio_data = $this->getAudioFromApi($this->str);
-
-            $audioData = $this->getAudio();
+           
+            $audio = new Audio();
+            $audioData = $audio->getAudioFromApi($this->str, $this->voiceCountry, $this->voiceName);
+            $audio->setAudio($audioData);
 
             $processedSecondDefinitionsToString = json_encode($processedSecondDefinitions);
             
@@ -278,14 +247,14 @@ class Word extends Dbh
             error_log("Error: " . $e->getMessage());
         }
     }
-    public function deleteWord($worde){
+    public static function deleteWord($worde,  $user_uuid){
         $sql = "DELETE FROM words WHERE str = :str AND user_uuid = :user_uuid";
         try {
             $dbh = new Dbh;
             $pdo = $dbh->connect();
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':str', $worde);
-            $stmt->bindParam(':user_uuid', $this->user_uuid);
+            $stmt->bindParam(':user_uuid', $user_uuid);
             $stmt->execute();
             
         } catch (PDOException $e) {
