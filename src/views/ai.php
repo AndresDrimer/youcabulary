@@ -9,6 +9,7 @@ use Andres\YoucabOk\models\Audio;
 use function PHPUnit\Framework\isEmpty;
 
 require "src/includes/header.inc.php";
+require "src/resources/audio_tools.php";
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -71,7 +72,7 @@ $voiceCountry = $_SESSION["voiceCountry"];
                    
                 //get new Paragraph
                 $newParagraph = $newAi->getParagraph($userCustomWordsArray);
-                //esta linea la uso para probar y no gastar quota de mi API: $newParagraph = "este es un parrafo de prueba bien culero wey";
+                //esta linea la uso para probar y no gastar quota de mi API: $newParagraph = "este es un parrafo de prueba";
 
                 //save to database 
                 $paragraph = new Paragraph($newParagraph, $user_uuid, $voiceCountry, $voiceName);

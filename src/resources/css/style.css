@@ -833,6 +833,7 @@ margin-top:16px;
 
  .modalScroll{
   display: none;
+  visibility: hidden;
   position: fixed;
   z-index: 1;
   bottom: 20px; 

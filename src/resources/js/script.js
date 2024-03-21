@@ -83,8 +83,11 @@ if(closeSelfModal){
   function showModal() {
     if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
        document.getElementById("scrollModal").style.display = "block";
+       document.getElementById("scrollModal").style.visibility = "visible"; 
+       
     } else {
        document.getElementById("scrollModal").style.display = "none";
+       document.getElementById("scrollModal").style.visibility = "hidden"; 
     }
    }
 // Obtiene el elemento <span> que cierra el modal
