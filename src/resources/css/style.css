@@ -52,6 +52,11 @@ header > div {
     font-size: 35px;
   }
 }
+@media(min-width:768px){
+  #header-text-title{
+    font-size: 45px;
+  }
+}
 #home-title{
   font-family: 'Playfair Display', serif;
   font-size: 48px;
@@ -157,7 +162,7 @@ header > div {
 }
 @media(min-width:500px){
   #hello{
-    font-size:20px;
+    font-size:24px;
   }
 }
 h1 {
@@ -716,18 +721,39 @@ margin-bottom: -10px;
 .nav-main{
   width: 100vw;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between;  
+  margin:4px auto 0 auto;
+
 
 }
 .nav-main-item{
   padding:8px;
   font-family: 'Playfair Display', serif; 
   font-size:12px;
-  color: gray;
+  color: var(--gray);
   cursor:pointer;
 }
 .nav-main-item:last-child{
   margin-right: 8px;
+}
+.nav-main-item:hover{
+  color:black;
+
+}
+@media(min-width:400px){
+  .nav-main-item{
+    font-size:16px;
+  }
+}
+@media(min-width:560px){
+  .nav-main{
+      width:80%;
+  }
+}
+@media(min-width:768px){
+  .nav-main-item{
+    font-size:20px;
+  }
 }
 .ai-p{
 font-family: var(--small-font);
