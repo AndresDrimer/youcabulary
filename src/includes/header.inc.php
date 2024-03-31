@@ -49,11 +49,18 @@ logout
 
     
     <?php 
-    $bg_color_standard = isset($_SESSION["bg_color"]) ? $_SESSION["bg_color"] : "#ffdf66";
+    $BG_COLOR_STD = "#ffdf66";
+    $bg_color_standard = isset($_SESSION["bg_color"]) ? $_SESSION["bg_color"] : $BG_COLOR_STD;
+
+    $FONT_COLOR_STD = "#000000";
+    $font_color_standard = isset($_SESSION["font_color"]) ? $_SESSION["font_color"] : $FONT_COLOR_STD;
     ?>
     <style>
   header {
             background-color: <?php echo $bg_color_standard; ?>;
         }
+    #header-text-title{
+        color: <?php echo $font_color_standard; ?>
+    }
 
     </style>

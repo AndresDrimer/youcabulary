@@ -798,11 +798,28 @@ margin-top:16px;
 .center{
   text-align: center;
 }
-.form-settings{
+.form-settings, .form-settings-colors{
   display:flex;
   margin: 8px auto 24px auto;
-
 }
+.form-settings-colors > div{
+  display:flex;
+  justify-content: space-between;
+}
+#color-forms-grid-container{
+  display: flex;
+  flex-direction: column;
+ align-items:flex-end;
+  margin:12px auto 0 auto;
+}
+@media (min-width: 560px) {
+  #color-forms-grid-container {
+    flex-direction: row; 
+    width: 80%;
+  max-width: 700px;
+  gap:16px;
+    }
+  }
 
 .bg_gray{
   background-color: rgb(219, 211, 211);
@@ -858,4 +875,10 @@ margin-top:16px;
   cursor: pointer;
   border-radius: 50%;
   padding: 12px 0;
+}
+#colors-change-main-container{
+  margin-top:24px;
+}
+#restore-btn{
+  background-color: #474747;
 }
