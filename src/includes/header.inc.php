@@ -40,9 +40,7 @@ if( isset($_SESSION["uuid"]) ){
         <h1 id="header-text-title">YouCabulary</h1>
   </div>
     <div id="logout-container">
-    <a href="src/controllers/logout_control.php"><span class="material-symbols-outlined" id="logout-sign">
-logout
-</span></a>    
+    <a href="src/controllers/logout_control.php"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" id="logout-sign"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg></a>    
     <?php if(isset($username)){echo"<p id='hello'>Welcome " .ucfirst(lcfirst($username)) . "!</p>";} ?></div>
     </header>
 
