@@ -584,7 +584,7 @@ input:checked + .slider:before {
 }
 #del-word-btn:hover, #del-word-btn:active{
   scale:1.2;
-  color: red;
+  fill: red;
 }
 .bin-complete-form{
  margin-right:auto;
