@@ -274,7 +274,7 @@ input[type="submit"]:active {
  
 }
 input:focus {
-  border: 1px solid var(--custom-light-orange); 
+  border: 1px solid var(--gray); 
   
 }
 .alert {
@@ -554,6 +554,12 @@ input:checked + .slider:before {
   justify-content: space-around;
   gap:12px 8px;
   flex-wrap: wrap;
+
+
+  background-color:rgba(114, 109, 109, 0.1);  border-radius: 16px;
+  padding:20px 8px;
+  border:1px solid rgba(0, 0, 0, 0.2);
+
   
   
 }
@@ -565,6 +571,8 @@ input:checked + .slider:before {
   font-family: var(--handwriting-font);
   cursor:pointer;
   text-align: center;
+  background-color: var(--custom-white);
+
   
 }
 #del-word-btn{
@@ -901,10 +909,16 @@ margin-top:16px;
   cursor: pointer;
   border-radius: 50%;
   padding: 12px 0;
+  border:1px solid gray;
 }
 #colors-change-main-container{
   margin-top:24px;
 }
 #restore-btn{
   background-color: #474747;
+}
+
+
+.material-symbols-outlined {
+color:var(--custom-white);
 }

@@ -50,11 +50,9 @@ $voiceCountry = $_SESSION["voiceCountry"];
         <a href="?view=archive" class="nav-main-item">Archive</a>
         <a href="?view=settings" class="nav-main-item">Settings</a>
     </nav>
-    <h1 id="ai-title">YouCabulary´s<br>AI generation</h1>
+    <h1 id="ai-title">YouCabulary´s<br>AI creation</h1>
 
-    <p class="ai-p">We handle AI generation to create a random paragraph with 5 of your custom words to help you
-        practice.<br><span>Free users are allowed to create only one paragraph a day. We are working on deliverying paid
-            suscriptions to make this feature limitless</span></p>
+    <p class="ai-p">We handle AI generation to create a random and meaningfull paragraph with 5 of your custom words.<br><span>*  You are allowed to create 1 new paragraph each day</span></p>
 
     <form method="post">
         <input type="submit" value="create your daily paragraph!">

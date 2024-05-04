@@ -83,3 +83,15 @@ function audioFormatter($audioData){
     return 'data:audio/mpeg;base64,' . base64_encode($audioData);
 }
 
+
+function returnFlagFromCountryCode(string $countryCode){
+    $countryCode = strtolower($countryCode);
+    global $voices; 
+    foreach($voices as $voice){
+        if($voice['country_code'] === $countryCode){
+            return $voice['flag'];
+        }
+    }
+
+    return null;
+}

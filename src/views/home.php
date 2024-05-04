@@ -159,6 +159,11 @@ $voiceCountry = $_SESSION["voiceCountry"];
                         delete
                     </span></button>
             </form>
+<!-- esto no esta, es donde irian las banderas de cada locucion
+            <div class="mini-flag-audio">
+                <?php //echo returnFlagFromCountryCode($word[""]); ?>
+            </div>
+-->
         </div>
 
 
