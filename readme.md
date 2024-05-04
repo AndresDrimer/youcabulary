@@ -1,57 +1,25 @@
 YOCABULARY let´s you add english words to your collection, and they would be shown with their definition and an audio with they correct pronunciation. It has an educational purpose, for English students.
 
+***
+CRASH UPDATE.
+v2
 
+NOT storing anymore audio as a word or parapragph property, BUT on its own TABLE.
+Users would have the chance to hear his words AND DEFINITONS in different accents, selectable in main page.
+AUDIO TABLE should be filled with audios that users select to be saved, so they should have a reference to every word or paragraph.
+A NEW SECTION can be created, in where you HEAR an audio an have the opportunity to write it, and then the system can correct your mistakes. 
+AUDIO schema should be like:
+CREATE TABLE IF NOT EXISTS audios (
+    uuid VARCHAR(255) NOT NULL PRIMARY KEY,
+    audio_data MEDIUMBLOB NOT NULL,
+    word_uuid VARCHAR(255),
+    paragraph_uuid VARCHAR(255),
+    FOREIGN KEY (word_uuid) REFERENCES words(uuid),
+    FOREIGN KEY (paragraph_uuid) REFERENCES paragraphs(uuid),
+    UNIQUE(word_uuid, paragraph_uuid)
+);
+ALTER TABLE words DROP COLUMN audio_data;
+ALTER TABLE words ADD COLUMN audio_uuid VARCHAR(255) NOT NULL UNIQUE;
 
-///v.1.2.0
-changed close sound to cork.wav (recently added to /public/audio) on resources/js/register_login.js
-modal itselfs is its closing button (close buttons still works by itself)
-footer´s layout is not fixed anymore
-
-New page ai.php, updated switch case on app.php router 
-
-New modles AIGenerative and Paragraph
-
-Schema Change
-
-Cree un nuevo schema 
-
-Cree New view ai and archive
-
-///Settings
-cambios en home
-cambios en app
-cree view/settings
-cambie includes/header
-cambie style.css
-cree controllers/settings
-
-//Refactoring
-cambia los models Word, Paragraph,, AiGenerative, add_word, delete_word
- y cree Audio, ademas: 
-cambie ai.php
-cree resources/audio_tools.php
-Ademas, voy a probar modificar algo importante, no grabar mas los audios, para que se pueda cambiar el acento.
-Va a consumir mas recusos de API (pero me da 350 hits diarios) pero dar mas feat.
-Agregue el archive resources/voices-detail
-
-
-/// Planned Future features
-Otras 2 funcionalidades:
-1) otra API que te ecsuche leyendo y puntue o corrija.
-2) un settings que permita modificar fonts, colores?, cantidad de acepciones?, voz de hombre para el lector o con otro acento?
-
-Pide poner esto:
-<a target="_blank" href="https://icons8.com/icon/cYRU7TBWwNVs/canada">Canada</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
-
-Some Ai generated Texts:
- In the heart of a quiet town, there was a small, <b>cozy</b> diner that served delicious homemade meals. The owner, an old man with a warm smile, had a special bond with his daughter who helped him run the place. One day, while peeling <b>batatas</b>, she accidentally cut her finger and let out a loud scream, alerting her father. Rushing over, he gently tended to her wound and whispered comforting words in her ear. Just then, they heard commotion outside - a group of unruly kids causing trouble in the streets. Her father looked at her with determination in his eyes, grabbed his hat, and marched outside to <b>catch</b> them before things escalated further. She watched from the window, proud of her brave <b>father</b>. After what seemed like hours, the street grew quiet once again, and he returned to their little haven, victorious but weary. That night, nestled together in the snug diner, recounting tales of bravery and love, they found warmth and solace in one another. Together, through trials big or small, their family stood strong.
-
- In the heart of a quiet town, there was a small, <b>cozy</b> diner that served delicious homemade meals. The owner, an old man with a warm smile, had a special bond with his daughter who helped him run the place. One day, while peeling <b>batatas</b>, she accidentally cut her finger and let out a loud scream, alerting her father. Rushing over, he gently tended to her wound and whispered comforting words in her ear. Just then, they heard commotion outside - a group of unruly kids causing trouble in the streets. Her father looked at her with determination in his eyes, grabbed his hat, and marched outside to <b>catch</b> them before things escalated further. She watched from the window, proud of her brave <b>father</b>. After what seemed like hours, the street grew quiet once again, and he returned to their little haven, victorious but weary. That night, nestled together in the snug diner, recounting tales of bravery and love, they found warmth and solace in one another. Together, through trials big or small, their family stood strong.
-
- In the heart of winter, there was nothing more comforting than spending time in a cozy corner, wrapped up in a blanket while watching the snowfall outside. It reminded Elias of his childhood memories when he used to sit next to his father, sharing stories and laughter. One particular incident that stood out was the day Elias tried to catch a fire using a magnifying glass and some dry leaves. His father watched him struggle until eventually, Elius managed to create a tiny spark, filling both their hearts with joy. As they celebrated their small victory, little did Elias know that one day, he would become an engineer working on projects similar to pi and zero. Life had its unique ways of connecting the dots, creating beautiful patterns along the way.
-
- In the heart of winter, there was nothing more comforting than spending time in a cozy corner, wrapped up in a blanket while watching the snowfall outside. It reminded Elias of his childhood memories when he used to sit next to his father, sharing stories and laughter. One particular incident that stood out was the day Elias tried to catch a fire using a magnifying glass and some dry leaves. His father watched him struggle until eventually, Elius managed to create a tiny spark, filling both their hearts with joy. As they celebrated their small victory, little did Elias know that one day, he would become an engineer working on projects similar to pi and zero. Life had its unique ways of connecting the dots, creating beautiful patterns along the way.
-
-In the heat of battle, John's mind raced as he dod...In the heat of battle, John's mind raced as he dodged spells and arrows. His heart swelled with an odd mix of fear and excitement, but suddenly, his opponent cast a <b>spell</b> that caught him off guard. He stumbled backward, momentarily stunned. <b>'Fuck off!'</b> he shouted, shaking off the daze. Drawing from some hidden reserve, he mustered up every bit of <b>sorcery</b> within him and launched a counterattack. To his surprise, it worked; the enemy crumbled before him. An overwhelming sense of relief washed over John, followed by pure elation. For once, he felt truly happy. It was a victory he never thought possible - one born of courage, determination, and maybe just a little magic.
-
-In the heat of battle, John's mind raced as he dodged spells and arrows. His heart swelled with an odd mix of fear and excitement, but suddenly, his opponent cast a <b>spell</b> that caught him off guard. He stumbled backward, momentarily stunned. <b>'Fuck off!'</b> he shouted, shaking off the daze. Drawing from some hidden reserve, he mustered up every bit of <b>sorcery</b> within him and launched a counterattack. To his surprise, it worked; the enemy crumbled before him. An overwhelming sense of relief washed over John, followed by pure elation. For once, he felt truly happy. It was a victory he never thought possible - one born of courage, determination, and maybe just a little magic.
+ALTER TABLE paragraphs DROP COLUMN audio;
+ALTER TABLE paragraphs ADD COLUMN audio_uuid VARCHAR(255) NOT NULL UNIQUE;

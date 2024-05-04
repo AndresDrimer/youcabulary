@@ -6,6 +6,7 @@ use Andres\YoucabOk\models\UserCelebrate;
 
 require "src/includes/header.inc.php";
 require "src/resources/audio_tools.php";
+require "src/controllers/message_control.php";
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -14,25 +15,10 @@ if (session_status() == PHP_SESSION_NONE) {
 $user_uuid = $_SESSION["uuid"];
 $custom_dictionary = Word::getAll($user_uuid);
 
-////////////////////////////////////////
-//////////handle Message´s Modals///////
-////////////////////////////////////////
+//handle Modal messages
+handleMessages($_SESSION);
 
-//audio
-$messageTypeToAudio = include "src/controllers/audio_control.php";
 
-//message´s type
-if (isset($_SESSION['message'])) {
-    if (array_key_exists($_SESSION['message_type'], $messageTypeToAudio)) {
-        $audioFilePath = $messageTypeToAudio[$_SESSION['message_type']];
-    } else {
-        // Handle the case where the message type is not defined
-        $audioFilePath = ''; // Default to no audio or set a default audio path
-    }
-    echo '<div class="back-overlay"></div><div class="alert alert-' . $_SESSION['message_type'] .  '" id="close-self-modal"><div class="close">✖</div>' . $_SESSION['message'] . '<audio src="' . $audioFilePath . '" autoplay></audio></div>';
-    unset($_SESSION['message']);
-    unset($_SESSION['message_type']);
-}
 
 function makeTruncatedDef($definition)
 {
