@@ -7,6 +7,7 @@ use Andres\YoucabOk\models\UserCelebrate;
 require "src/includes/header.inc.php";
 require "src/resources/audio_tools.php";
 require "src/controllers/message_control.php";
+require "src/resources/long_definition_helper.php";
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -18,31 +19,7 @@ $custom_dictionary = Word::getAll($user_uuid);
 //handle Modal messages
 handleMessages($_SESSION);
 
-
-
-function makeTruncatedDef($definition)
-{
-    // REGEX for identify number of definitons inside Definition1
-    preg_match_all('/(\d+\.)/', $definition, $matches);
-    // Get index of first point following number gretaer than 3
-    $lastMatchIndex = false;
-    foreach ($matches[0] as $key => $match) {
-        if ((int)$matches[1][$key] >  3) {
-            $lastMatchIndex = $key;
-            break;
-        }
-    }
-    // Cut text beyond 3. point
-    if ($lastMatchIndex !== false) {
-        $truncatedDefinition = substr($definition,  0, strpos($definition, $matches[0][$lastMatchIndex]));
-    } else {
-        //if its smaller than 4 points, show entire definition
-        $truncatedDefinition = $definition;
-    }
-    
-    return $truncatedDefinition;
-}
-
+//handle celebrations
 $userCelebrate = new UserCelebrate($uuid);
 $wordCount = $userCelebrate->getUserWordCount();
 $_SESSION["wordCount"] = $wordCount;
@@ -145,6 +122,7 @@ $voiceCountry = $_SESSION["voiceCountry"];
                         delete
                     </span></button>
             </form>
+
 <!-- esto no esta, es donde irian las banderas de cada locucion
             <div class="mini-flag-audio">
                 <?php //echo returnFlagFromCountryCode($word[""]); ?>
