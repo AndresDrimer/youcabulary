@@ -74,11 +74,9 @@ $voiceCountry = $_SESSION["voiceCountry"];
             <button id="close-philo-modal" class="close">✖</button>
         </div>
         <h3>YouCabulary Philosophy</h3>
-        <p>Existe un método secreto que muchos de los mejores lingüistas del mundo comparten y los ayudó durante
-            generaciones a aprender nuevos idiomas. La simpleza es la clave, y el
-            método consiste de una sola regla: aprender 3 palabras nuevas cada día.
+        <p>There exists a secret method that many of the world's best linguists share, which has helped them over generations to learn new languages. Simplicity is the key, and the method consists of a single rule: learn 3 new words each day.
 
-            <br>No lo olvides: <span style="font-weight:bold;">3 palabras, cada día, todos los días.</span>
+            <br>Don't forget: <span style="font-weight:bold;">3 words, every day, every day.</span>
         </p>
     </div>
 
