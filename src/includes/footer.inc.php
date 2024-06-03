@@ -12,12 +12,18 @@
 
 <?php 
     $bg_color_standard = isset($_SESSION["bg_color"]) ? $_SESSION["bg_color"] : "#ffdf66";
+
+    
+    $FONT_COLOR_STD = "#000000";
+    $font_color_standard = isset($_SESSION["font_color"]) ? $_SESSION["font_color"] : $FONT_COLOR_STD;
     ?>
     <style>
  footer {
             background-color: <?php echo $bg_color_standard; ?>;
         }
-
+#footer-logo-container, #footer-last-line{
+     color: <?php echo $font_color_standard; ?>
+}
     </style>
 
 

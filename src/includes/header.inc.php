@@ -57,8 +57,10 @@ if( isset($_SESSION["uuid"]) ){
   header {
             background-color: <?php echo $bg_color_standard; ?>;
         }
-    #header-text-title{
+    #header-text-title, #hello {
         color: <?php echo $font_color_standard; ?>
     }
-
+    #logout-sign{
+         fill: <?php echo $font_color_standard; ?>
+    }
     </style>
